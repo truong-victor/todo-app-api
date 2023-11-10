@@ -5,6 +5,8 @@ import { UserService } from './user/user.service';
 import { PrismaService } from 'services/prisma.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtMiddleware } from 'middleware/jwt.middleware';
+import { AppController } from './app.controller';
+import { AppService } from './app.service';
 
 @Module({
   imports: [
@@ -13,8 +15,8 @@ import { JwtMiddleware } from 'middleware/jwt.middleware';
       signOptions: { expiresIn: '72h' },
     }),
   ],
-  controllers: [UserController],
-  providers: [UserService, PrismaService],
+  controllers: [AppController, UserController],
+  providers: [AppService, UserService, PrismaService],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
