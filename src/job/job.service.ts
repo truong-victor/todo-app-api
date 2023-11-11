@@ -1,9 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateJobDto, RepairJobDto } from './job.dto';
-import * as bcrypt from 'bcrypt';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
-import { Job } from '@prisma/client';
 import { PrismaService } from 'services/prisma.service';
 @Injectable()
 export class JobService {
@@ -12,7 +10,7 @@ export class JobService {
     private readonly jwtService: JwtService,
   ) {}
   //GET Job
-  async getJob(req: Request) {
+  async getList(req: Request) {
     const { name, page = 1, pageSize = 10 } = req.query;
     const lowercaseName = name ? name.toString().toLowerCase() : '';
     try {
@@ -59,7 +57,7 @@ export class JobService {
   //GET Job DONE
 
   //CREATE NEW Job
-  async createJob(createJobDto: CreateJobDto) {
+  async create(createJobDto: CreateJobDto) {
     const { note, name, userId } = createJobDto;
 
     try {
@@ -86,7 +84,7 @@ export class JobService {
   //CREATE NEW Job DONE
 
   //REPAIR Job
-  async repairJob(repairJobDto: RepairJobDto) {
+  async edit(repairJobDto: RepairJobDto) {
     const { id, note, name, status, userId } = repairJobDto;
     const now = new Date();
     const data = {
@@ -119,7 +117,7 @@ export class JobService {
   //REPAIR Job DONE
 
   //REMOVE Job
-  async removeJob(req: Request) {
+  async delete(req: Request) {
     const { id } = req.query;
 
     try {
@@ -131,7 +129,7 @@ export class JobService {
       });
 
       return {
-        message: 'Xóa Job thành công',
+        message: 'Xóa thành công',
         success: true,
         data: result,
       };
@@ -143,4 +141,27 @@ export class JobService {
     }
   }
   //REMOVE Job DONE
+
+  //GET DETAIL
+  async detail(req: Request) {
+    const { id } = req.query;
+
+    try {
+      const result = await this.prisma.job.findUnique({
+        where: { id: Number(id) },
+      });
+
+      return {
+        message: 'Xóa thành công',
+        success: true,
+        data: result,
+      };
+    } catch (error: any) {
+      throw new HttpException(
+        error?.message ?? 'Internal Server',
+        error.status ?? HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+  //GET DETAIL DONE
 }
