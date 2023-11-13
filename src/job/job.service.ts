@@ -152,7 +152,7 @@ export class JobService {
       });
 
       return {
-        message: 'Xóa thành công',
+        message: 'thành công',
         success: true,
         data: result,
       };
