@@ -144,7 +144,7 @@ export class JobService {
 
   //GET DETAIL
   async detail(req: Request) {
-    const { id } = req.query;
+    const { id } = req.params;
 
     try {
       const result = await this.prisma.job.findUnique({
