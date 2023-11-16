@@ -1,5 +1,5 @@
 import { Controller, Post, Body, Get, Delete, Req, Put } from '@nestjs/common';
-import { CreateJobDto, RepairJobDto } from './job.dto';
+import { CreateJobDto } from './job.dto';
 import { Request } from 'express';
 import {
   ApiOperation,
@@ -9,6 +9,7 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { JobService } from './job.service';
+import { Job } from '@prisma/client';
 
 @Controller('/api/v1/job')
 @ApiTags('Job')
@@ -62,7 +63,7 @@ export class JobController {
     description: 'Success',
     schema: {},
   })
-  async repairJob(@Body() repairJobDto: RepairJobDto) {
+  async repairJob(@Body() repairJobDto: Partial<Job>) {
     return this.jobService.edit(repairJobDto);
   }
 

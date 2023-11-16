@@ -31,14 +31,8 @@ model Job {
   note    String    @default("")
   startAt DateTime  @default(now())
   doneAt  DateTime?
-  status  JobStatus @default(PENDING)
+  status  String    @default("PENDING")
   userId  Int?
   User    User?     @relation(fields: [userId], references: [id])
   deleted Boolean   @default(false)
-}
-
-enum JobStatus {
-  PENDING
-  DOING
-  DONE
 }

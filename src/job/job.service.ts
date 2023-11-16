@@ -1,8 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { CreateJobDto, RepairJobDto } from './job.dto';
+import { CreateJobDto } from './job.dto';
 import { Request } from 'express';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'services/prisma.service';
+import { Job } from '@prisma/client';
 @Injectable()
 export class JobService {
   constructor(
@@ -84,16 +85,8 @@ export class JobService {
   //CREATE NEW Job DONE
 
   //REPAIR Job
-  async edit(repairJobDto: RepairJobDto) {
-    const { id, note, name, status, userId } = repairJobDto;
-    const now = new Date();
-    const data = {
-      note,
-      name,
-      status,
-      userId,
-      doneAt: status && status === 'DONE' ? now : undefined,
-    };
+  async edit(repairJobDto: Partial<Job>) {
+    const { id, ...data } = repairJobDto;
     try {
       const result = await this.prisma.job.update({
         where: {
