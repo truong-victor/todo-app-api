@@ -5,7 +5,7 @@ export const createSwaggerDocument = (app: any) => {
     .setTitle('API EXAMPLE')
     .setDescription('todo APP API description')
     .setVersion('1.0')
-    .addTag('TODO APP')
+    .addTag(':))) APP')
     .build();
 
   const document = SwaggerModule.createDocument(app, options);
