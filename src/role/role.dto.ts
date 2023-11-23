@@ -1,15 +1,12 @@
 import { ApiProperty } from '@nestjs/swagger';
 // import { JobStatus } from '@prisma/client';
 
-export class CreateJobDto {
+export class CreateRoleDto {
   @ApiProperty()
-  readonly note?: string;
+  readonly tenhienthi: string;
 
   @ApiProperty()
-  readonly name: string;
-
-  @ApiProperty()
-  readonly userId: number;
+  readonly tenviettat: string;
 }
 
 export class RepairJobDto {

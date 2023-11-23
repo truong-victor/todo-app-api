@@ -36,3 +36,24 @@ model Job {
   User    User?     @relation(fields: [userId], references: [id])
   deleted Boolean   @default(false)
 }
+
+model Role {
+  id Int @id @default(autoincrement())
+
+  tenhienthi String
+  tenviettat String
+
+  trangthai Boolean @default(true)
+}
+
+model Product {
+  id Int @id @default(autoincrement())
+
+  name        String
+  salePrice   Int
+  price       Int
+  avatar      String
+  listImage   String
+  quantity    Int    @default(0)
+  description String @default("")
+}
