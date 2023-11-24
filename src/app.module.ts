@@ -47,6 +47,6 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(JwtMiddleware)
-      .forRoutes('/api/v1/user/me', '/api/v1/admin/*');
+      .forRoutes('/api/v1/user/me', '/api/v1/file', '/api/v1/admin/*');
   }
 }

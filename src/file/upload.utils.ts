@@ -1,6 +1,14 @@
+import { HttpException, HttpStatus } from '@nestjs/common';
+
 export const imageFileFilter = (req: any, file: any, callback: any) => {
   if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-    return callback(new Error('Only image files are allowed!'), false);
+    return callback(
+      new HttpException(
+        'Only allow jpg|jpeg|png|gif',
+        HttpStatus.UNPROCESSABLE_ENTITY,
+      ),
+      false,
+    );
   }
   callback(null, true);
 };

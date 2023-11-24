@@ -1,6 +1,7 @@
 import { Controller, Post, Body, Get, Delete, Req, Put } from '@nestjs/common';
 import { Request } from 'express';
 import {
+  ApiHeader,
   ApiOperation,
   ApiParam,
   ApiQuery,
@@ -22,6 +23,9 @@ export class ProductController {
     description: 'Trang hiện tại',
     required: true,
     type: Number,
+  })
+  @ApiHeader({
+    name: 'X-access-token',
   })
   @ApiQuery({
     name: 'pageSize',
@@ -46,6 +50,9 @@ export class ProductController {
 
   @Post()
   @ApiOperation({ summary: 'Tạo  mới' })
+  @ApiHeader({
+    name: 'X-access-token',
+  })
   @ApiResponse({
     status: 201,
     description: 'Success',
@@ -57,6 +64,9 @@ export class ProductController {
 
   @Put()
   @ApiOperation({ summary: 'Sửa ' })
+  @ApiHeader({
+    name: 'X-access-token',
+  })
   @ApiResponse({
     status: 200,
     description: 'Success',
@@ -68,6 +78,9 @@ export class ProductController {
 
   @Get(':id')
   @ApiOperation({ summary: 'Lấy thông tin chi tiết theo id' })
+  @ApiHeader({
+    name: 'X-access-token',
+  })
   @ApiParam({
     name: 'id',
     description: 'Id',
@@ -84,6 +97,9 @@ export class ProductController {
 
   @Delete(':id')
   @ApiOperation({ summary: 'Xóa' })
+  @ApiHeader({
+    name: 'X-access-token',
+  })
   @ApiParam({
     name: 'id',
     description: 'Id',

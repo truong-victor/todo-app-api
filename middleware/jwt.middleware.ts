@@ -1,8 +1,9 @@
 // jwt.middleware.ts
 import {
+  HttpException,
+  HttpStatus,
   Injectable,
   NestMiddleware,
-  UnauthorizedException,
 } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { JwtService } from '@nestjs/jwt';
@@ -14,17 +15,15 @@ export class JwtMiddleware implements NestMiddleware {
   use(req: Request, res: Response, next: NextFunction) {
     const token = req.headers['x-access-token'] as string | undefined;
 
-    if (token) {
-      try {
-        const decoded = this.jwtService.verify(token);
-
-        req['user'] = decoded;
-      } catch (error) {
-        // Handle invalid token
-        throw new UnauthorizedException('Invalid token');
-      }
+    if (!token) {
+      throw new HttpException('Missing accessToken', HttpStatus.UNAUTHORIZED);
     }
-
-    next();
+    try {
+      const decoded = this.jwtService.verify(token);
+      req['user'] = decoded;
+      next();
+    } catch (error) {
+      throw new HttpException('Unauthorization', HttpStatus.FORBIDDEN);
+    }
   }
 }

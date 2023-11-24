@@ -12,7 +12,7 @@ import { memoryStorage } from 'multer';
 import { editFileName, imageFileFilter } from './upload.utils';
 // import { Response } from 'express';
 import { FileService } from './file.service';
-import { ApiBody, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiHeader, ApiTags } from '@nestjs/swagger';
 // import { readFileSync } from 'fs';
 @Controller('/api/v1/file')
 @ApiTags('files')
@@ -33,6 +33,9 @@ export class FileController {
   )
 
   //swagger
+  @ApiHeader({
+    name: 'X-access-token',
+  })
   @ApiConsumes('multipart/form-data')
   @ApiBody({
     schema: {
