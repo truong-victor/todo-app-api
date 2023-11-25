@@ -21,7 +21,7 @@ export class ProductService {
         take: Number(pageSize),
       });
 
-      const totalCount = await this.prisma.job.count({
+      const totalCount = await this.prisma.product.count({
         where: {
           name: {
             contains: lowercaseName,
