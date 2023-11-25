@@ -81,7 +81,7 @@ export class ProductService {
     try {
       const result = await this.prisma.product.update({
         where: {
-          id,
+          id: Number(id),
         },
         data: {
           listImage: JSON.stringify(listImage),
