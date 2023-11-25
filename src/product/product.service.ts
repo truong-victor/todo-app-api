@@ -27,7 +27,6 @@ export class ProductService {
             contains: lowercaseName,
             mode: 'insensitive',
           },
-          deleted: false,
         },
       });
       return {
