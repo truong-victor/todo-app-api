@@ -14,6 +14,8 @@ import { FileController } from './file/file.controller';
 import { FileService } from './file/file.service';
 import { ProductController } from './product/product.controller';
 import { ProductService } from './product/product.service';
+import { PublicProductController } from './public/product/product.controller';
+import { PublicProductService } from './public/product/product.service';
 
 @Module({
   imports: [
@@ -32,6 +34,7 @@ import { ProductService } from './product/product.service';
     // RoleController,
     FileController,
     ProductController,
+    PublicProductController,
   ],
   providers: [
     AppService,
@@ -41,6 +44,7 @@ import { ProductService } from './product/product.service';
     // RoleService,
     FileService,
     ProductService,
+    PublicProductService,
   ],
 })
 export class AppModule implements NestModule {
